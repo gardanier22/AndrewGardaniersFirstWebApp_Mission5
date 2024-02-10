@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Tutoring Calculator";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <label for="hours">Number of Hours Needed:</label>
+    <input type="number" id="hours" name="hours" min="1" required>
+    <span class="text-danger" id="hoursError"></span>
+</div>
+
+<div>
+    <label>Hourly Tutoring Charge:</label>
+    <input type="text" id="hourlyCharge" name="hourlyCharge" value="$22" readonly> <!-- Sample value, replace with your actual rate -->
+</div>
+
+<button type="button" id="calculateTotal">Calculate Total</button>
+
+<div>
+    <label>Total Charge:</label>
+    <input type="text" id="totalCharge" name="totalCharge" readonly>
+</div>
+
+<a href="@Url.Action("Index", "Home")">Back to Home Page</a>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<div>
+    <footer id="footer" class="footer">
+        <div class="container">
+            Copyright; The Andrew Gardanier Foundation (Since 2001) agardanier22@gmail.com
+        </div>
+    </footer>
+</div>
+<script src="c:\users\andre\source\repos\andrewgardaniersfirstwebapp\andrewgardaniersfirstwebapp\wwwroot\lib\jquery\dist\jquery.min.js"></script>
+<script src="c:\users\andre\source\repos\andrewgardaniersfirstwebapp\andrewgardaniersfirstwebapp\wwwroot\lib\jquery\dist\jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#calculateTotal").on("click", function () {
+            $("#hoursError").text("");
+
+            var hours = parseFloat($("#hours").val());
+
+            if (isNaN(hours) || hours <= 0) {
+                $("#hoursError").text("Please enter a valid positive number.");
+                return;
+            }
+
+            var hourlyCharge = parseFloat($("#hourlyCharge").val().replace('$', '')); 
+            var totalCharge = hours * hourlyCharge;
+
+            $("#totalCharge").val("$" + totalCharge.toFixed(2));
+        });
+    });
+</script>
+
